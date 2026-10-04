@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StudyTrack – Student Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#17233f;--mut:#5b6478;--line:#dfe3ea;--bd:#c9d0dc;--grid:rgba(23,35,63,.045);--p:#17233f;--pt:#fff;--hl:#ffd84d;--ok:#1b7f5c;--warn:#a85f00;--bad:#c93a31;--hd:#17233f;--lk:#2748c4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1320;--card:#161d2e;--ink:#eef1f7;--mut:#9aa4ba;--line:#26304a;--bd:#3a4663;--grid:rgba(255,255,255,.04);--p:#eef1f7;--pt:#0e1320;--ok:#43c59a;--warn:#f0b04a;--bad:#ff7a70;--hd:#1b2540;--lk:#8fa6ff}}
+:root[data-theme="dark"]{--bg:#0e1320;--card:#161d2e;--ink:#eef1f7;--mut:#9aa4ba;--line:#26304a;--bd:#3a4663;--grid:rgba(255,255,255,.04);--p:#eef1f7;--pt:#0e1320;--ok:#43c59a;--warn:#f0b04a;--bad:#ff7a70;--hd:#1b2540;--lk:#8fa6ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(to right,var(--grid) 1px,transparent 1px),linear-gradient(var(--grid) 1px,transparent 1px);background-size:32px 32px;color:var(--ink);font:16px/1.55 "Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;overflow-x:hidden}
+h1,h2,h3,.brand,.stat b,.dh b{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;letter-spacing:-.015em}
+button{font:inherit;cursor:pointer;border:0}
+:focus-visible{outline:3px solid var(--lk);outline-offset:2px}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--bd);background:var(--bg);color:var(--ink);font:inherit;min-width:0}
+textarea{resize:vertical}
+main{max-width:820px;margin:0 auto;padding:20px 16px 90px}
+header{display:flex;align-items:center;gap:18px;background:var(--hd);color:#fff;border-radius:14px;padding:20px 22px}
+header h1{margin:0;font-size:1.7rem}header p{margin:4px 0 0;color:#c9d1e3;font-size:.95rem}
+.ring{position:relative;width:88px;height:88px;flex:none}.ring svg{transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}.ring .t{stroke:rgba(255,255,255,.2)}
+.ring .f{stroke:var(--hl);stroke-dasharray:264;stroke-dashoffset:264;transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:1.1rem}
+.hb{margin-left:auto;display:flex;gap:8px;align-items:center}
+.th,.home{background:var(--card);color:var(--ink);border:1px solid var(--bd);padding:8px 14px;border-radius:8px;font-weight:600;font-size:.82rem}
+.th.h,.home{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.28)}
+.th:hover,.home:hover{opacity:.85}
+.mt,.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line)}
+.mt{margin-top:14px}.tabs{margin:16px 0 12px}
+.tab{padding:10px 14px;background:none;color:var(--mut);border-bottom:2px solid transparent;font-weight:600;white-space:nowrap;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}.tab.on{color:var(--ink);border-bottom-color:var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:14px 0}
+.stat{background:var(--card);padding:12px 14px}.stat b{display:block;font-size:1.5rem;line-height:1.2}.stat span{font-size:.78rem;color:var(--mut)}
+.xp{height:4px;background:var(--line);border-radius:4px;margin-top:6px;overflow:hidden}.xp i{display:block;height:100%;background:var(--hl);transition:width .6s}
+form{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+form .w{grid-column:1/-1}
+.add,.btn,.cta{background:var(--p);color:var(--pt);font-weight:700;border-radius:8px;transition:opacity .15s}
+.add{grid-column:1/-1;padding:12px}.add:hover,.btn:hover,.cta:hover{opacity:.88}
+.btn{padding:10px 18px}.btn:disabled{opacity:.4;cursor:not-allowed}.btn.g{background:var(--bg);color:var(--ink);border:1px solid var(--bd)}
+.sm{background:var(--bg);color:var(--ink);border:1px solid var(--bd);padding:8px 14px;border-radius:8px;font-weight:600}.sm:hover{background:var(--line)}
+.focus{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:14px;flex-wrap:wrap}
+.focus b{font-size:1.5rem;font-variant-numeric:tabular-nums}
+.fb{flex:1;min-width:80px;height:6px;background:var(--line);border-radius:4px;overflow:hidden}.fb i{display:block;height:100%;width:0;background:var(--p);transition:width 1s linear}
+#q{margin-top:14px}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--ink));border-radius:10px;padding:12px;animation:slide .35s both;transition:opacity .3s,box-shadow .2s}
+li:hover{box-shadow:0 2px 12px rgba(23,35,63,.12)}li.done{opacity:.6}li.done .tt{text-decoration:line-through}li.out{animation:out .3s forwards}
+@keyframes slide{from{opacity:0;transform:translateY(8px)}}@keyframes out{to{opacity:0;transform:translateX(40px)}}
+.ck{position:relative;width:24px;height:24px;border-radius:6px;border:2px solid var(--c,var(--ink));background:none;flex:none;color:#fff;transition:background .2s}
+.done .ck{background:var(--ok);border-color:var(--ok)}
+.ck::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;font-size:.85rem;opacity:0;transform:scale(.4);transition:.2s}.done .ck::after{opacity:1;transform:none}
+.info{flex:1;min-width:0}.tt{font-weight:600;overflow-wrap:anywhere}.tt[contenteditable=true]{outline:2px solid var(--lk);border-radius:4px;padding:0 4px}
+.meta{font-size:.8rem;color:var(--mut);margin-top:2px}
+.tag{font-size:.72rem;padding:2px 8px;border-radius:6px;border:1px solid var(--c,var(--bd));color:var(--ink);font-weight:600;white-space:nowrap}
+.due{font-size:.78rem;font-weight:700;white-space:nowrap}
+.del{background:none;color:var(--mut);font-size:1.2rem;padding:4px 8px;border-radius:6px}.del:hover{color:var(--bad);background:var(--bg)}
+.empty{text-align:center;color:var(--mut);padding:40px 0}
+.spark{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:50}
+footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:28px}
+footer a,.lnk{color:var(--lk);background:none;text-decoration:underline;cursor:pointer;font:inherit}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:8px;font-weight:600;z-index:200;animation:toast 2.8s forwards;max-width:92vw}
+@keyframes toast{0%{opacity:0;transform:translate(-50%,20px)}10%,85%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,0)}}
+.modal{position:fixed;inset:0;background:rgba(10,14,28,.6);display:none;place-items:center;z-index:100;padding:16px}.modal.open{display:grid}
+.box{background:var(--card);border-radius:14px;max-width:560px;width:100%;max-height:86vh;display:flex;flex-direction:column;animation:slide .3s both}
+.box h2{margin:0;padding:20px 22px 8px}
+.txt{overflow:auto;padding:0 22px;font-size:.88rem;line-height:1.6;color:var(--mut)}.txt h3{color:var(--ink);font-size:.95rem;margin:14px 0 4px}
+.acts{display:flex;gap:8px;padding:16px 22px;justify-content:flex-end;align-items:center;flex-wrap:wrap}
+.acts label{flex:1;font-size:.82rem;min-width:200px}.acts label input{width:auto;margin-right:6px}
+#lab{display:grid;gap:12px;margin-top:14px}#lab[hidden]{display:none}
+.lc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:10px}
+.lc h3{margin:0;font-size:1.1rem}.lc small{color:var(--mut)}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row input{flex:1}.up{cursor:pointer}
+.src{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg);border:1px solid var(--line);border-radius:8px;font-size:.88rem}.src span{flex:1;overflow-wrap:anywhere}
+.src input,.mini input{width:auto}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+#chat{display:grid;gap:8px;max-height:460px;overflow:auto;padding:2px}
+.bb{padding:10px 14px;border-radius:12px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.92rem;line-height:1.55;animation:slide .3s both;max-width:92%}
+.bb.u{background:var(--p);color:var(--pt);justify-self:end}.bb.a{background:var(--bg);border:1px solid var(--line)}
+.mini{font-size:.78rem;color:var(--mut);margin:0}
+.qz{display:grid;gap:6px;margin:10px 0;white-space:normal}
+.opt{text-align:left;background:var(--card);color:var(--ink);border:1px solid var(--bd);padding:9px 12px;border-radius:8px}
+.opt:hover{background:var(--bg)}.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.no{background:var(--bad);color:#fff;border-color:var(--bad);animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.fcard{display:block;width:100%;margin:6px 0;padding:18px;border-radius:10px;background:var(--card);color:var(--ink);border:1px solid var(--bd);font-weight:600;min-height:64px;white-space:normal;text-align:left}
+.fcard.fl{background:var(--p);color:var(--pt)}
+#land{max-width:1040px;margin:0 auto;padding:18px 20px 56px}
+.nav{display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:10px}
+.mk{width:28px;height:28px;border-radius:7px;background:var(--p);position:relative}
+.mk::after{content:"";position:absolute;left:10px;top:5px;width:6px;height:12px;border:solid var(--hl);border-width:0 3px 3px 0;transform:rotate(40deg)}
+.cta{padding:14px 26px;font-size:1rem}.cta.s{padding:9px 16px;font-size:.88rem}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding:64px 0 56px}
+.hero h1{font-size:clamp(2.3rem,5.4vw,3.6rem);line-height:1.04;margin:0 0 16px;font-weight:800}
+.hero p{color:var(--mut);max-width:46ch;font-size:1.1rem;margin:0 0 26px}
+.demo{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 18px 40px -22px rgba(23,35,63,.5)}
+.dh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}.dh b{font-size:1.15rem}.dh span{color:var(--mut);font-size:.85rem}
+.dbar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:12px}.dbar i{display:block;height:100%;width:0;background:var(--ok);transition:width .5s cubic-bezier(.2,.8,.2,1)}
+.di{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--bg);color:var(--ink);border-left:4px solid var(--c);border-radius:8px;padding:12px;margin-bottom:8px;animation:slide .6s both}
+.bx{width:22px;height:22px;border:2px solid var(--c);border-radius:6px;flex:none;position:relative;transition:background .2s}
+.di.on .bx{background:var(--ok);border-color:var(--ok)}.di.on .bx::after{content:"✓";color:#fff;position:absolute;inset:0;display:grid;place-items:center;font-size:.8rem}
+.di.on .dt b{text-decoration:line-through;color:var(--mut)}
+.dt{flex:1}.dt b{display:block;font-weight:600}.dt small{color:var(--mut)}.dd{font-size:.78rem;font-weight:700;color:var(--mut)}
+.cap{color:var(--mut);font-size:.82rem;margin:6px 2px 0}
+.fl{padding:40px 0;border-top:1px solid var(--line)}.fl h2{font-size:1.7rem;margin:0 0 18px}.fl dl{margin:0}
+.fl dl>div{display:grid;grid-template-columns:minmax(180px,1fr) 2fr;gap:24px;padding:18px 0;border-top:1px solid var(--line)}
+.fl dt{font-weight:700;font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif}.fl dd{margin:0;color:var(--mut);max-width:60ch}
+.end{padding:40px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.end h2{margin:0;font-size:1.5rem}
+@media(max-width:820px){.hero{grid-template-columns:1fr;gap:32px;padding:36px 0}}
+@media(max-width:700px){.fl dl>div{grid-template-columns:1fr;gap:4px}}
+@media(max-width:520px){header{flex-direction:column;text-align:center}header .hb{margin:0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<section id="land">
+<div class="nav"><span class="brand"><span class="mk"></span>StudyTrack</span><span class="hb"><button class="th" aria-label="Theme"></button><button class="cta s go">Open app</button></span></div>
+<div class="hero">
+<div>
+<h1>Know what's due before it's late.</h1>
+<p>StudyTrack keeps homework, projects, exams and school tasks in one list, with a study lab that works from your own notes.</p>
+<button class="cta go">Open StudyTrack</button>
+</div>
+<div>
+<div class="demo" role="group" aria-label="Interactive preview">
+<div class="dh"><b>This week</b><span id="dc"></span></div>
+<div class="dbar"><i id="dbar"></i></div>
+<button class="di on" aria-pressed="true" style="--c:#4f7be8;animation-delay:.15s"><span class="bx"></span><span class="dt"><b>Algebra worksheet</b><small>Math</small></span><span class="dd">Due tomorrow</span></button>
+<button class="di" aria-pressed="false" style="--c:#14a3a3;animation-delay:.3s"><span class="bx"></span><span class="dt"><b>Lab report draft</b><small>Chemistry</small></span><span class="dd">Due Friday</span></button>
+<button class="di" aria-pressed="false" style="--c:#e0574d;animation-delay:.45s"><span class="bx"></span><span class="dt"><b>Unit 3 exam</b><small>History</small></span><span class="dd">In 6 days</span></button>
+</div>
+<p class="cap">Tap a task to mark it done.</p>
+</div>
+</div>
+<section class="fl">
+<h2>What you get</h2>
+<dl>
+<div><dt>One list for everything</dt><dd>Homework, projects, exams and school tasks, with search and filters by type.</dd></div>
+<div><dt>Due dates at a glance</dt><dd>Overdue, today and tomorrow are marked, and the next exam has a countdown.</dd></div>
+<div><dt>Study Lab</dt><dd>Add your own notes, then get answers with sources, quizzes, flashcards, study guides and step-by-step math.</dd></div>
+<div><dt>Focus timer and levels</dt><dd>25-minute sessions and XP for finished work help you keep going.</dd></div>
+<div><dt>Private by default</dt><dd>Your list and notes stay in your browser. Text is sent out only when you use the AI tools.</dd></div>
+</dl>
+</section>
+<div class="end"><h2>Start with one task.</h2><button class="cta go">Open StudyTrack</button></div>
+<footer><a class="lnk tl">Terms of Use &amp; Privacy Policy</a></footer>
+</section>
+<main id="app" hidden>
+<header>
+  <div class="ring"><svg width="96" height="96" viewBox="0 0 96 96"><circle class="t" cx="48" cy="48" r="42"/><circle class="f" id="arc" cx="48" cy="48" r="42"/></svg><b id="pct">0%</b></div>
+  <div><h1>StudyTrack</h1><p id="hello">Plan it. Do it. Ace it.</p></div><span class="hb"><button class="th h" aria-label="Theme"></button><button class="home" id="home" aria-label="Home">Home</button></span>
+</header>
+<div class="mt"><button class="tab on" data-v="pl">Planner</button><button class="tab" data-v="lab">Study Lab</button></div>
+<div id="pl">
+<div class="stats">
+  <div class="stat"><b id="sOpen">0</b><span>To do</span></div>
+  <div class="stat"><b id="sSoon">0</b><span>Due in 3 days</span></div>
+  <div class="stat"><b id="sExam">–</b><span>Next exam</span></div>
+  <div class="stat"><b id="sLvl">1</b><span>Level</span><div class="xp"><i id="xpb"></i></div></div>
+</div>
+<form id="f">
+  <input class="w" id="title" placeholder="What do you need to do?" maxlength="120" required>
+  <select id="type"><option value="homework">Homework</option><option value="project">Project</option><option value="exam">Exam</option><option value="school">School</option></select>
+  <input id="subject" placeholder="Subject (e.g. Math)" maxlength="40">
+  <input class="w" id="due" type="date" required>
+  <button class="add" type="submit">+ Add</button>
+</form>
+<div class="focus"><span></span><b id="tmr">25:00</b><div class="fb"><i id="tbar"></i></div><button class="sm" id="tgo">Start</button><button class="sm" id="trs">Reset</button></div>
+<input id="q" placeholder="Search… (double-click a task to edit it)">
+<div class="tabs" id="tabs"></div>
+<ul id="list"></ul></div>
+<section id="lab" hidden>
+<div class="lc"><h3>Sources <small id="sc"></small></h3>
+<div id="srcs"></div>
+<input id="stt" placeholder="Source title (e.g. Biology ch. 3)" maxlength="60">
+<textarea id="stx" rows="4" placeholder="Paste notes, textbook text or an article…"></textarea>
+<div class="row"><button class="sm" id="sadd">+ Add source</button><label class="sm up">Upload .txt / .md<input type="file" id="sfile" accept=".txt,.md,.csv,text/plain" hidden></label></div></div>
+<div class="lc"><h3>Ask your notebook</h3>
+<div class="chips"><button class="sm ch" data-a="sum">Summary</button><button class="sm ch" data-a="guide">Study guide</button><button class="sm ch" data-a="quiz">Quiz me</button><button class="sm ch" data-a="cards">Flashcards</button><button class="sm ch" data-a="plan">Study plan</button><button class="sm ch" data-a="math">Solve math</button></div>
+<div id="chat"></div>
+<div class="row"><input id="ask" placeholder="Ask a question, type a topic, or a math problem…" maxlength="500"><button class="sm" id="send">Send</button></div>
+<label class="mini"><input type="checkbox" id="res"> Research mode: also use general knowledge, not only my sources</label>
+<p class="mini">AI can make mistakes, so check important facts. It cannot browse the web. Don't enter personal or sensitive info.</p></div>
+</section>
+<footer>StudyTrack is a free organizing tool. Your list and sources stay on your device; AI features send only what you submit.<br><a class="lnk" id="openT">Terms of Use &amp; Privacy Policy</a></footer>
+</main>
+
+<div class="modal" id="terms" role="dialog" aria-modal="true" aria-labelledby="th">
+<div class="box">
+<h2 id="th">Terms of Use &amp; Privacy</h2>
+<div class="txt">
+<p><em>Last updated: [DATE]. This is a general template and not legal advice; have a qualified lawyer review it for your country or region before launch.</em></p>
+<h3>1. Acceptance</h3><p>By using StudyTrack ("the App") you agree to these Terms. If you do not agree, do not use the App.</p>
+<h3>2. Eligibility</h3><p>If you are under 13 (or the minimum age in your country), you may use the App only with a parent or guardian's permission. Parents/guardians are responsible for minors' use.</p>
+<h3>3. Purpose &amp; no guarantees</h3><p>The App is a personal organizing tool. It does not provide academic, professional, or legal advice. You are solely responsible for checking deadlines, exam dates, and requirements with your school or teacher. Reminders and countdowns may be inaccurate, delayed, or unavailable.</p>
+<h3>4. Your data</h3><p>Entries you add (titles, subjects, dates) are stored locally in your browser on your device. We do not collect, sell, or share them. Clearing your browser data or switching devices may permanently delete them. Please do not enter sensitive personal information (passwords, ID numbers, health or financial data).</p>
+<h3>4a. AI Study Assistant</h3><p>The optional Study Lab sends the questions and source text you submit to an AI service to generate answers, quizzes and flashcards. Do not submit personal or sensitive information. AI output may be wrong, incomplete or out of date and is not a substitute for your teacher, textbook or professional advice. Use it in line with your school's academic-integrity rules; you are responsible for any work you submit.</p><h3>5. Acceptable use</h3><p>Do not misuse the App, attempt to disrupt it, or use it for unlawful purposes.</p>
+<h3>6. Intellectual property</h3><p>The App's design and code belong to [YOUR NAME / ORGANIZATION]. You keep ownership of the content you enter.</p>
+<h3>7. Disclaimer of warranties</h3><p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.</p>
+<h3>8. Limitation of liability</h3><p>TO THE FULLEST EXTENT PERMITTED BY LAW, [YOUR NAME / ORGANIZATION] SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING MISSED DEADLINES, LOST GRADES, OR LOST DATA, ARISING FROM YOUR USE OF THE APP. Nothing here limits liability that cannot be limited by law.</p>
+<h3>9. Changes &amp; termination</h3><p>We may update the App or these Terms at any time. Continued use means you accept the updated Terms.</p>
+<h3>10. Governing law</h3><p>These Terms are governed by the laws of [YOUR COUNTRY/STATE]. Disputes will be handled in its courts.</p>
+<h3>11. Privacy summary</h3><p>No account is required. If you use the AI Study Assistant, the text you submit to it is processed by an AI service to produce a response. No analytics, ads, or cookies are used by the App itself. Local storage is used only to save your list. Contact: [YOUR EMAIL].</p>
+<br>
+</div>
+<div class="acts">
+<label id="agreeW"><input type="checkbox" id="agree">I am 13+ (or have parent/guardian permission) and agree to the Terms &amp; Privacy Policy.</label>
+<button class="btn" id="accept" disabled>Continue</button>
+<button class="btn g" id="close" style="display:none">Close</button>
+</div></div></div>
+
+<script>
+(function(){
+var COL={homework:"#4f7be8",project:"#14a3a3",exam:"#e0574d",school:"#d39a14"};
+var LBL={homework:"Homework",project:"Project",exam:"Exam",school:"School"};
+var items=[],filter="all",accepted=false,q="",xp=0;
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+items=ld("st_items",[]);xp=ld("st_xp",0);
+var TH=["auto","light","dark"],TI={auto:"Device",light:"Light",dark:"Dark"},tc=ld("st_theme","auto");
+if(TH.indexOf(tc)<0)tc="auto";
+function applyT(){var r=document.documentElement;if(tc==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",tc);document.querySelectorAll(".th").forEach(function(b){b.textContent=TI[tc]})}
+document.querySelectorAll(".th").forEach(function(b){b.onclick=function(){tc=TH[(TH.indexOf(tc)+1)%3];sv("st_theme",tc);applyT()}});
+applyT();accepted=ld("st_terms",false);
+var $=function(i){return document.getElementById(i)};
+function days(d){var a=new Date();a.setHours(0,0,0,0);var b=new Date(d+"T00:00:00");return Math.round((b-a)/864e5)}
+function dueTxt(n){if(n<0)return["Overdue "+(-n)+"d","var(--bad)"];if(n===0)return["Today","var(--warn)"];if(n===1)return["Tomorrow","var(--warn)"];return["In "+n+" days",n<=3?"var(--warn)":"var(--mut)"]}
+function save(){sv("st_items",items)}
+function tabs(){var t=$("tabs");t.textContent="";[["all","All"],["homework","Homework"],["project","Projects"],["exam","Exams"],["school","School"]].forEach(function(x){var b=document.createElement("button");b.className="tab"+(filter===x[0]?" on":"");b.textContent=x[1];b.onclick=function(){filter=x[0];tabs();render()};t.appendChild(b)})}
+function stats(){
+var open=items.filter(function(i){return!i.done});
+$("sOpen").textContent=open.length;
+$("sSoon").textContent=open.filter(function(i){var d=days(i.due);return d>=0&&d<=3}).length;
+var ex=open.filter(function(i){return i.type==="exam"&&days(i.due)>=0}).sort(function(a,b){return a.due>b.due?1:-1})[0];
+$("sExam").textContent=ex?days(ex.due)+"d":"–";
+var p=items.length?Math.round((items.length-open.length)/items.length*100):0;
+$("pct").textContent=p+"%";$("sLvl").textContent=Math.floor(xp/50)+1;$("xpb").style.width=(xp%50)*2+"%";$("arc").style.strokeDashoffset=264-264*p/100;
+$("hello").textContent=!items.length?"Add your first task to begin!":p===100?"All done! Time to relax ":open.length+" thing"+(open.length>1?"s":"")+" left. You've got this!"}
+function burst(el){var r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+for(var i=0;i<14;i++){var s=document.createElement("span");s.className="spark";s.style.left=cx+"px";s.style.top=cy+"px";s.style.background=["#ffd84d","#4f7be8","#14a3a3","#e0574d","#d39a14"][i%5];document.body.appendChild(s);
+var a=i/14*Math.PI*2,d=40+Math.random()*40;
+var an=s.animate([{transform:"translate(0,0) scale(1)",opacity:1},{transform:"translate("+Math.cos(a)*d+"px,"+Math.sin(a)*d+"px) scale(0)",opacity:0}],{duration:700,easing:"cubic-bezier(.2,.8,.2,1)"});
+an.onfinish=function(e){return function(){e.remove()}}(s)}}
+function render(){
+var l=$("list");l.textContent="";
+var v=items.filter(function(i){return(filter==="all"||i.type===filter)&&(i.title+" "+i.subject).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return a.done-b.done||(a.due>b.due?1:-1)});
+if(!v.length){var e=document.createElement("div");e.className="empty";e.innerHTML="<i></i>";var p=document.createElement("p");p.textContent="Nothing here yet. Add something above!";e.appendChild(p);l.appendChild(e)}
+v.forEach(function(it,k){
+var li=document.createElement("li");li.className=it.done?"done":"";li.style.setProperty("--c",COL[it.type]);li.style.animationDelay=k*55+"ms";
+var ck=document.createElement("button");ck.className="ck";ck.setAttribute("aria-label","Mark complete");
+ck.onclick=function(){it.done=!it.done;if(it.done)burst(ck);gain(it.done?10:-10);save();li.classList.toggle("done",it.done);stats();setTimeout(render,it.done?650:0)};
+var inf=document.createElement("div");inf.className="info";
+var t=document.createElement("div");t.className="tt";t.textContent=it.title;t.title="Double-click to edit";
+t.ondblclick=function(){t.contentEditable="true";t.focus()};
+t.onblur=function(){if(t.contentEditable==="true"){t.contentEditable="false";var v=t.textContent.trim();if(v){it.title=v;save()}else t.textContent=it.title}};
+t.onkeydown=function(e){if(e.key==="Enter"){e.preventDefault();t.blur()}};
+var m=document.createElement("div");m.className="meta";m.textContent=(it.subject?it.subject+" · ":"")+new Date(it.due+"T00:00:00").toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+inf.appendChild(t);inf.appendChild(m);
+var tg=document.createElement("span");tg.className="tag";tg.textContent=LBL[it.type];
+var du=document.createElement("span");du.className="due";var d=dueTxt(days(it.due));du.textContent=it.done?"Done":d[0];du.style.color=it.done?"var(--ok)":d[1];
+var x=document.createElement("button");x.className="del";x.textContent="×";x.setAttribute("aria-label","Delete");
+x.onclick=function(){li.classList.add("out");setTimeout(function(){items=items.filter(function(z){return z!==it});save();render();stats()},330)};
+[ck,inf,tg,du,x].forEach(function(n){li.appendChild(n)});l.appendChild(li)});
+stats()}
+$("f").onsubmit=function(e){e.preventDefault();
+if(!accepted){openT(true);return}
+var t=$("title").value.trim();if(!t||!$("due").value)return;
+items.push({id:Date.now(),type:$("type").value,title:t,subject:$("subject").value.trim(),due:$("due").value,done:false});
+save();$("title").value="";$("subject").value="";render()};
+function openT(gate){$("terms").classList.add("open");$("agreeW").style.display=gate?"":"none";$("accept").style.display=gate?"":"none";$("close").style.display=gate?"none":""}
+$("openT").onclick=function(){openT(accepted)};
+$("agree").onchange=function(){$("accept").disabled=!this.checked};
+$("accept").onclick=function(){accepted=true;sv("st_terms",true);$("terms").classList.remove("open")};
+$("close").onclick=function(){$("terms").classList.remove("open")};
+var td=new Date();td.setDate(td.getDate()+1);$("due").value=td.toISOString().slice(0,10);
+tabs();render();
+function gain(n){var o=Math.floor(xp/50);xp=Math.max(0,xp+n);sv("st_xp",xp);if(Math.floor(xp/50)>o){toast("Level up! You're level "+(Math.floor(xp/50)+1)+" ");burst($("sLvl"))}stats()}
+function toast(m){var t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(function(){t.remove()},2800)}
+$("q").oninput=function(){q=this.value.toLowerCase();render()};
+function enter(){$("land").hidden=true;$("app").hidden=false;window.scrollTo(0,0);stats();if(!accepted)setTimeout(function(){openT(true)},500)}
+document.querySelectorAll(".go").forEach(function(b){b.onclick=enter});
+$("home").onclick=function(){$("app").hidden=true;$("land").hidden=false;window.scrollTo(0,0)};
+document.querySelectorAll(".tl").forEach(function(b){b.onclick=function(){openT(false)}});
+try{var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.2});document.querySelectorAll(".rv").forEach(function(n){io.observe(n)})}catch(e){document.querySelectorAll(".rv").forEach(function(n){n.classList.add("in")})}
+var dis=document.querySelectorAll(".di");
+function dsync(){var n=document.querySelectorAll(".di.on").length;$("dc").textContent=n+" of "+dis.length+" done";$("dbar").style.width=n/dis.length*100+"%"}
+dis.forEach(function(b){b.onclick=function(){var on=b.classList.toggle("on");b.setAttribute("aria-pressed",on);dsync()}});dsync();
+var tl=1500,ti=null;
+function tm(){var m=Math.floor(tl/60),s=tl%60;$("tmr").textContent=(m<10?"0":"")+m+":"+(s<10?"0":"")+s;$("tbar").style.width=(100-tl/15)+"%"}
+$("tgo").onclick=function(){if(ti){clearInterval(ti);ti=null;this.textContent="Start"}else{this.textContent="Pause";ti=setInterval(function(){tl--;tm();if(tl<=0){clearInterval(ti);ti=null;$("tgo").textContent="Start";tl=1500;gain(20);toast("Focus session done! +20 XP ");tm()}},1000)}};
+$("trs").onclick=function(){clearInterval(ti);ti=null;tl=1500;$("tgo").textContent="Start";tm()};
+tm();
+
+var srcs=ld("st_src",[]),hist=[],busy=false;
+function ssave(){sv("st_src",srcs)}
+function srcRender(){var d=$("srcs");d.textContent="";srcs.forEach(function(s,i){var r=document.createElement("div");r.className="src";var c=document.createElement("input");c.type="checkbox";c.checked=s.on;c.onchange=function(){s.on=c.checked;ssave()};var n=document.createElement("span");n.textContent=s.t+" ("+Math.round(s.x.length/100)/10+"k chars)";var x=document.createElement("button");x.className="del";x.textContent="×";x.setAttribute("aria-label","Remove source");x.onclick=function(){srcs.splice(i,1);ssave();srcRender()};r.appendChild(c);r.appendChild(n);r.appendChild(x);d.appendChild(r)});$("sc").textContent=srcs.length?"("+srcs.length+")":""}
+function addSrc(t,x){x=(x||"").trim();if(!x){toast("Paste some text first");return}srcs.push({t:(t||"Untitled").trim().slice(0,60),x:x.slice(0,40000),on:true});ssave();srcRender()}
+$("sadd").onclick=function(){addSrc($("stt").value,$("stx").value);$("stt").value="";$("stx").value=""};
+$("sfile").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){addSrc(f.name,String(r.result))};r.readAsText(f);this.value=""};
+function ctx(){var t="",b=60000;srcs.filter(function(s){return s.on}).forEach(function(s){if(b>0){var x=s.x.slice(0,b);b-=x.length;t+="=== SOURCE: "+s.t+" ===\n"+x+"\n\n"}});return t}
+function planCtx(){return "\nToday: "+new Date().toISOString().slice(0,10)+"\nStudent's open tasks:\n"+items.filter(function(i){return!i.done}).map(function(i){return"- "+i.type+": "+i.title+(i.subject?" ("+i.subject+")":"")+", due "+i.due}).join("\n")+"\n"}
+function say(r,t){var b=document.createElement("div");b.className="bb "+r;b.textContent=t;$("chat").appendChild(b);b.scrollIntoView({block:"nearest",behavior:"smooth"});return b}
+function quiz(b,qs){var sc=0,dn=0;qs.forEach(function(q,qi){var card=document.createElement("div");card.className="qz";var h=document.createElement("b");h.textContent=(qi+1)+". "+q.q;card.appendChild(h);q.options.forEach(function(o,oi){var bt=document.createElement("button");bt.className="opt";bt.textContent=o;bt.onclick=function(){if(card.dataset.d)return;card.dataset.d=1;dn++;var ok=oi===q.answer;if(ok)sc++;bt.classList.add(ok?"ok":"no");if(!ok)card.children[q.answer+1].classList.add("ok");var w=document.createElement("p");w.className="mini";w.textContent=(ok?"Correct. ":"Not quite. ")+(q.why||"");card.appendChild(w);if(ok)burst(bt);if(dn===qs.length){gain(sc*5);var f=document.createElement("b");f.textContent="Score: "+sc+"/"+qs.length+" (+"+sc*5+" XP)";b.appendChild(f)}};card.appendChild(bt)});b.appendChild(card)})}
+function cards(b,cs){cs.forEach(function(c){var d=document.createElement("button");d.className="fcard";d.textContent=c.front;var f=false;d.onclick=function(){f=!f;d.classList.toggle("fl",f);d.textContent=f?c.back:c.front;d.animate([{transform:"rotateX(90deg)"},{transform:"none"}],{duration:300})};b.appendChild(d)})}
+async function run(ins,mode,label){
+if(busy)return;
+var sm=null;try{sm=window.claude?await window.claude.use("sample"):null}catch(e){}
+if(!sm){toast("AI assistant isn't available in this view");return}
+busy=true;$("send").disabled=true;say("u",label);$("ask").value="";
+var b=say("a","Thinking…"),c=mode==="math"?"":ctx(),res=$("res").checked,j=mode==="quiz"||mode==="cards";
+var sys="You are StudyTrack's friendly study assistant for students. Be accurate, clear and encouraging, and keep answers under 250 words unless asked for more. Write plain text only, no markdown symbols like ** or #; use short paragraphs and dashes for lists. ";
+sys+="For maths, show numbered steps, use Unicode symbols (², √, ×, ÷, ≤, π), write fractions like (a)/(b), never use LaTeX, and double-check the arithmetic. ";
+if(mode==="math")sys+="Solve the problem with your own maths knowledge; sources are not required. ";else if(c&&!res)sys+="Answer ONLY from the SOURCES below and cite the source title in [brackets]. If the answer is not in the sources, say so plainly. ";
+else if(c)sys+="Use the SOURCES below first (cite titles in [brackets]), then add general knowledge under the label 'Beyond your sources:'. ";
+else sys+="No sources were added, so answer from general knowledge, say you cannot browse the web, and suggest the student verify facts with their textbook or reliable sites. ";
+var p=sys+"\n\n"+c+(mode==="plan"?planCtx():"")+(j?"":hist.join("\n")+"\n")+"Student request: "+ins;
+try{
+if(j){var d=await sm.json(p+"\nReturn ONLY valid JSON, nothing else.");if(!Array.isArray(d))d=d&&(d.questions||d.cards||d.items);
+if(mode==="quiz")d=(d||[]).filter(function(q){return q&&q.q&&Array.isArray(q.options)&&q.options.length>1&&q.options[q.answer]!==undefined});
+else d=(d||[]).filter(function(x){return x&&x.front&&x.back});
+if(!d.length)throw{};b.textContent="";b.style.maxWidth="100%";if(mode==="quiz")quiz(b,d);else cards(b,d)}
+else{var r=await sm(p,{cache:false,modelTier:mode==="math"?"complex":"default",onText:function(o){b.textContent=o.text}});b.textContent=r.text;hist.push("Student: "+ins,"Assistant: "+r.text);hist=hist.slice(-8)}
+}catch(e){b.textContent=e&&e.code==="not_granted"?"AI access was declined, so I can't answer.":e&&e.code==="rate_limited"?"Too many requests. Please try again in a minute.":"Sorry, something went wrong. Please try again."}
+busy=false;$("send").disabled=false}
+var I={sum:"Summarize the material: a 3-sentence overview, then 5 key points.",guide:"Create a study guide: key concepts, important terms with definitions, and 5 likely exam questions.",quiz:'Write 5 multiple-choice questions (4 options each) testing understanding. Return a JSON array of objects: {"q":string,"options":[4 strings],"answer":correct index 0-3,"why":short explanation}.',cards:'Write 8 flashcards. Return a JSON array of objects: {"front":term or question,"back":concise answer}.'};
+var L={sum:"Summary",guide:"Study guide",quiz:"Quiz me",cards:"Flashcards",plan:"Study plan",math:"Solve math"};
+document.querySelectorAll(".ch").forEach(function(b){b.onclick=function(){var m=b.dataset.a,t=$("ask").value.trim();
+if(m==="math"){if(!t){toast("Type a math problem in the box first");return}return run("Solve this step by step, then check the answer: "+t+"\nAfterwards give one similar practice problem (without its answer) for me to try.",m,""+t)}
+if(m==="plan")return run("Create a realistic day-by-day study plan for my upcoming tasks and exams.",m,L[m]);
+if(!ctx()&&!t){toast("Add a source first, or type a topic below");return}
+run(I[m]+(t?" Topic/focus: "+t:""),m,L[m])}});
+function sendQ(){var t=$("ask").value.trim();if(t)run(t,"chat",t)}
+$("send").onclick=sendQ;$("ask").onkeydown=function(e){if(e.key==="Enter")sendQ()};
+document.querySelectorAll(".mt .tab").forEach(function(b){b.onclick=function(){document.querySelectorAll(".mt .tab").forEach(function(x){x.classList.toggle("on",x===b)});var l=b.dataset.v==="lab";$("pl").hidden=l;$("lab").hidden=!l;if(l&&!$("chat").children.length)say("a",window.claude?"Hi! Add your notes above, then ask me questions, or tap Summary, Quiz me or Flashcards. Turn on Research mode to explore topics beyond your sources.":"The AI assistant needs a server connection, which this copy of StudyTrack does not have yet. You can still save sources here, and the planner works fully.")}});
+srcRender();
+})();
+</script>
+</body>
+</html>
