@@ -21,3 +21,9 @@ The Study Lab was built to run inside Claude, which supplies the AI. On GitHub P
 
 ## Before you launch
 The Terms of Use and Privacy text in `site/index.html` is a template. Replace the `[DATE]`, `[YOUR NAME / ORGANIZATION]`, `[YOUR COUNTRY/STATE]` and `[YOUR EMAIL]` placeholders and have a lawyer review it, especially for users under 13. Add a LICENSE file of your choice.
+
+## Logo
+Files in `site/`: `logo.svg`, `logo-512.png`, `favicon.svg`, `favicon.ico`, `apple-touch-icon.png` and `social-preview.png` (1280x640). Upload `social-preview.png` under the repo's Settings > General > Social preview so links to the repo show the logo.
+
+## Selling StudyTrack
+Working plan: free planner, paid Pro plan (AI Study Lab and sync). Done: pricing section, Terms/Privacy/Refund pages, waitlist button (set `WAITLIST_URL` in `site/index.html` to a form link). Next: accounts, payments through a merchant-of-record provider, and an AI server with per-user limits.
