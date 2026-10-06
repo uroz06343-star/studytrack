@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3a56d4">
+<link rel="canonical" href="https://uroz06343-star.github.io/studytrack/notebook.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="StudyTrack">
+<meta property="og:title" content="Study Lab – StudyTrack">
+<meta property="og:description" content="Add your notes, ask questions and get answers that point back to your sources.">
+<meta property="og:url" content="https://uroz06343-star.github.io/studytrack/notebook.html">
+<meta property="og:image" content="https://uroz06343-star.github.io/studytrack/social-preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Study Lab – StudyTrack">
+<meta name="twitter:description" content="Add your notes, ask questions and get answers that point back to your sources.">
+<meta name="twitter:image" content="https://uroz06343-star.github.io/studytrack/social-preview.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="description" content="Add your notes, ask questions and get answers that point back to your sources.">
+
+<title>Study Lab – StudyTrack</title>
+<link rel="icon" href="logo.svg">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f7;--panel:#fff;--ink:#1b2437;--muted:#5d6881;--line:#dde3f0;--accent:#3a56d4;--tint:#e8edff;--mark:#ffe58a;--ok:#2b8a5a;--bad:#c92a5a}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1324;--panel:#161f36;--ink:#eaf0fd;--muted:#9eaac6;--line:#28345a;--accent:#8ea2ff;--tint:#212d52;--mark:#5a4a12;--ok:#5fd09a;--bad:#ff7aa8}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:400 15px/1.55 Figtree,system-ui,sans-serif;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+button,input,textarea{font:inherit;color:inherit}
+header{display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem}
+header a.b{font-weight:700;font-size:1.1rem;color:var(--ink);text-decoration:none}
+header input{flex:1;max-width:340px;background:transparent;border:0;font-weight:600;font-size:1rem;border-bottom:2px solid transparent;padding:.2rem 0}
+header input:hover,header input:focus{border-color:var(--line)}
+header .sp{flex:1}header a.h{color:var(--muted);font-size:.9rem}
+.tabs{display:none;gap:.4rem;padding:0 1rem .6rem}
+.tabs button{flex:1;padding:.5rem;border-radius:99px;border:1px solid var(--line);background:var(--panel);cursor:pointer;font-weight:600}
+.tabs button[aria-selected=true]{background:var(--tint);border-color:var(--accent);color:var(--accent)}
+main{flex:1;min-height:0;display:grid;grid-template-columns:290px 1fr 320px;gap:.75rem;padding:0 .75rem .75rem}
+.p{background:var(--panel);border-radius:20px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.p>h2{margin:0;padding:1rem 1.1rem .6rem;font-size:1rem;display:flex;justify-content:space-between;align-items:center}
+.sc{flex:1;overflow:auto;padding:0 1rem 1rem}
+.btn{border:1px solid var(--line);background:var(--panel);border-radius:99px;padding:.45rem .95rem;font-weight:600;cursor:pointer}
+.btn:hover{background:var(--tint)}.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn.sm{padding:.2rem .6rem;font-size:.8rem}
+.src{border:1px solid var(--line);border-radius:14px;padding:.6rem .8rem;margin-bottom:.5rem;display:flex;gap:.6rem;align-items:flex-start}
+.src.hl{border-color:var(--accent);background:var(--tint)}
+.src .n{flex:none;width:22px;height:22px;border-radius:7px;background:var(--tint);color:var(--accent);font-weight:700;font-size:.8rem;display:grid;place-items:center}
+.src b{display:block;font-size:.92rem;word-break:break-word}.src small{color:var(--muted)}
+.src button{margin-left:auto;background:none;border:0;color:var(--muted);cursor:pointer;font-size:1.1rem}
+.add textarea,.add input{width:100%;border:1px solid var(--line);border-radius:12px;padding:.55rem .7rem;background:var(--bg);margin-bottom:.5rem}
+.add textarea{height:110px;resize:vertical}
+.msgs{flex:1;overflow:auto;padding:0 1.2rem 1rem;display:flex;flex-direction:column;gap:.9rem}
+.m{max-width:92%;padding:.7rem 1rem;border-radius:18px}
+.m.u{align-self:flex-end;background:var(--tint)}.m.a{background:var(--bg)}
+.cite{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:7px;background:var(--accent);color:var(--bg);font-size:.72rem;font-weight:700;border:0;cursor:pointer;margin:0 2px;vertical-align:1px}
+.m mark{background:var(--mark);color:inherit;border-radius:3px;padding:0 2px}
+.empty{margin:auto;text-align:center;color:var(--muted);max-width:34ch}
+.sugg{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center;margin-top:.8rem}
+form.ask{display:flex;gap:.5rem;padding:.8rem 1rem;border-top:1px solid var(--line)}
+form.ask input{flex:1;border:1px solid var(--line);border-radius:99px;padding:.6rem 1rem;background:var(--bg)}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;padding:0 1rem 1rem}
+.tool{text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:.7rem;cursor:pointer}
+.tool:hover{border-color:var(--accent)}.tool b{display:block;font-size:.9rem}.tool span{font-size:.78rem;color:var(--muted)}
+.out{border-top:1px solid var(--line);padding:1rem}
+.out h3{margin:0 0 .5rem;font-size:.95rem}
+.fc{perspective:700px;margin-bottom:.6rem}
+.fc button{width:100%;min-height:120px;border-radius:16px;border:1px solid var(--line);background:var(--bg);padding:1rem;cursor:pointer;text-align:center;font-weight:600;transition:transform .35s;transform-style:flat}
+.fc button.f{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.fc.flip button{animation:fl .35s}@keyframes fl{0%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+.q p{font-weight:600;margin:.2rem 0 .5rem}
+.q button.o{display:block;width:100%;text-align:left;margin-bottom:.4rem;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:.5rem .8rem;cursor:pointer}
+.q button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}
+.q button.no{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 18%,transparent)}
+.out ul{padding-left:1.1rem;margin:.3rem 0}
+.note{font-size:.8rem;color:var(--muted);padding:0 1rem .9rem}
+@media(max-width:900px){main{grid-template-columns:1fr}.tabs{display:flex}main>.p{display:none}main>.p.on{display:flex}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><a class="b" href="index.html">StudyTrack</a><input id="title" value="Untitled notebook" aria-label="Notebook title"><span class="sp"></span><a class="h" href="index.html#privacy">Privacy</a></header>
+<div class="tabs" role="tablist"><button role="tab" data-t="s" aria-selected="false">Sources</button><button role="tab" data-t="c" aria-selected="true">Chat</button><button role="tab" data-t="o" aria-selected="false">Studio</button></div>
+<main>
+ <section class="p" id="ps" aria-label="Sources">
+  <h2>Sources <span id="cnt" style="color:var(--muted);font-weight:500"></span></h2>
+  <div class="sc">
+   <div id="srcs"></div>
+   <div class="add"><input id="st" placeholder="Source title (e.g. Chapter 4 notes)"><textarea id="sb" placeholder="Paste your notes here"></textarea>
+    <div style="display:flex;gap:.5rem"><button class="btn pri" id="addb">Add source</button><button class="btn" id="demo">Load sample</button></div></div>
+  </div>
+ </section>
+ <section class="p on" id="pc" aria-label="Chat">
+  <h2>Chat</h2>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <form class="ask" id="ask"><input id="q" placeholder="Ask about your sources" aria-label="Question"><button class="btn pri">Ask</button></form>
+ </section>
+ <section class="p" id="po" aria-label="Studio">
+  <h2>Studio</h2>
+  <div class="tools">
+   <button class="tool" data-g="guide"><b>Study guide</b><span>Key points by source</span></button>
+   <button class="tool" data-g="cards"><b>Flashcards</b><span>Flip to check</span></button>
+   <button class="tool" data-g="quiz"><b>Quiz</b><span>Fill the blank</span></button>
+   <button class="tool" data-g="terms"><b>Key terms</b><span>Most used</span></button>
+  </div>
+  <div class="note">Studio and chat run in your browser and use only the text you add. Nothing is sent anywhere. They pick out sentences rather than writing new ones, so always check against your teacher or textbook.</div>
+  <div class="sc" id="out"></div>
+ </section>
+</main>
+<script>
+var S=[],$=function(i){return document.getElementById(i)};
+var STOP="the a an and or of to in on for with is are was were be been it its this that these those as at by from can will not but if then so than into about which who what when where how why do does did have has had you your they their there also more most some such".split(" ");
+try{S=JSON.parse(localStorage.getItem("st_src")||"[]");$("title").value=localStorage.getItem("st_title")||"Untitled notebook"}catch(e){}
+function save(){try{localStorage.setItem("st_src",JSON.stringify(S));localStorage.setItem("st_title",$("title").value)}catch(e){}}
+$("title").oninput=save;
+function sents(t){return(t.replace(/\s+/g," ").match(/[^.!?]+[.!?]?/g)||[]).map(function(x){return x.trim()}).filter(function(x){return x.length>25})}
+function toks(t){return t.toLowerCase().match(/[a-z0-9]{3,}/g)||[]}
+function kw(t){return toks(t).filter(function(w){return STOP.indexOf(w)<0})}
+function all(){var r=[];S.forEach(function(s,i){sents(s.body).forEach(function(x){r.push({s:i,t:x})})});return r}
+function esc(t){return t.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function renderSrc(){
+ $("cnt").textContent=S.length?"("+S.length+")":"";
+ $("srcs").innerHTML=S.map(function(s,i){return '<div class="src" id="src'+i+'"><span class="n">'+(i+1)+'</span><div><b>'+esc(s.title)+'</b><small>'+toks(s.body).length+' words</small></div><button aria-label="Remove source '+(i+1)+'" data-r="'+i+'">×</button></div>'}).join("")||'<p style="color:var(--muted)">Add notes to start. Answers will point back to them.</p>';
+ document.querySelectorAll("[data-r]").forEach(function(b){b.onclick=function(){S.splice(+b.dataset.r,1);save();renderSrc();reset()}});
+}
+function reset(){$("msgs").innerHTML=S.length?'<div class="empty"><b>Ask a question about your notes</b><div class="sugg"><button class="btn sm" data-s="What are the main ideas?">What are the main ideas?</button></div></div>':'<div class="empty"><b>Add a source to begin</b><br>Paste your class notes on the left, or load the sample.</div>';
+ document.querySelectorAll("[data-s]").forEach(function(b){b.onclick=function(){$("q").value=b.dataset.s;$("ask").requestSubmit()}});$("out").innerHTML=""}
+$("addb").onclick=function(){var b=$("sb").value.trim();if(b.length<40){$("sb").focus();$("sb").placeholder="Add at least a couple of sentences.";return}S.push({title:$("st").value.trim()||"Source "+(S.length+1),body:b});$("sb").value="";$("st").value="";save();renderSrc();reset()};
+$("demo").onclick=function(){S=[{title:"Photosynthesis notes",body:"Photosynthesis is the process plants use to turn light energy into chemical energy. It takes place in the chloroplasts, which contain chlorophyll. Chlorophyll is the green pigment that absorbs light, mostly red and blue wavelengths. The light reactions produce ATP and oxygen from water. The Calvin cycle uses ATP and carbon dioxide to build glucose. Stomata are tiny pores on leaves that let carbon dioxide in and oxygen out."},{title:"Cell respiration notes",body:"Cellular respiration is the process cells use to release energy from glucose. Mitochondria are the organelles where most ATP is made. Glycolysis is the first stage of respiration and happens in the cytoplasm. Respiration uses oxygen and releases carbon dioxide and water. Photosynthesis and respiration are linked because the products of one are the inputs of the other."}];$("title").value="Biology unit 3";save();renderSrc();reset()};
+function msg(c,h){var d=document.createElement("div");d.className="m "+c;d.innerHTML=h;var m=$("msgs");if(m.querySelector(".empty"))m.innerHTML="";m.appendChild(d);m.scrollTop=m.scrollHeight;return d}
+$("ask").onsubmit=function(e){
+ e.preventDefault();var q=$("q").value.trim();if(!q)return;$("q").value="";
+ msg("u",esc(q));
+ var A=all();if(!A.length){msg("a","Add a source first, then ask again.");return}
+ var qk=kw(q);if(/main ideas|summar/i.test(q))qk=[];
+ var df={};A.forEach(function(x){new Set(kw(x.t)).forEach(function(w){df[w]=(df[w]||0)+1})});
+ var sc=A.map(function(x,i){var k=kw(x.t),sc=0;qk.forEach(function(w){if(k.indexOf(w)>=0)sc+=1+Math.log(A.length/(df[w]||1))});return{x:x,sc:sc,i:i}});
+ if(!qk.length)sc=A.map(function(x,i){return{x:x,sc:kw(x.t).length/(i%5+1),i:i}});
+ sc.sort(function(a,b){return b.sc-a.sc});var top=sc.filter(function(r){return r.sc>0}).slice(0,3);
+ if(!top.length){msg("a","I couldn't find that in your sources. Try different words, or add a source that covers it.");return}
+ top.sort(function(a,b){return a.i-b.i});
+ msg("a",top.map(function(r){var t=esc(r.x.t);qk.forEach(function(w){t=t.replace(new RegExp("\\b("+w+"\\w*)","ig"),"<mark>$1</mark>")});return t+'<button class="cite" data-c="'+r.x.s+'" aria-label="Source '+(r.x.s+1)+'">'+(r.x.s+1)+'</button>'}).join(" "));
+ bindCites()};
+function bindCites(){document.querySelectorAll("[data-c]").forEach(function(b){b.onclick=function(){document.querySelectorAll(".src").forEach(function(s){s.classList.remove("hl")});var el=$("src"+b.dataset.c);el.classList.add("hl");el.scrollIntoView({block:"nearest"});if(innerWidth<=900)tab("s")}})}
+function defs(){var r=[];all().forEach(function(x){var m=x.t.match(/^([A-Z][\w\s-]{2,40}?) (is|are|means|refers to) (.{15,200})$/);if(m)r.push({t:m[1].replace(/^(The|A|An) /,""),d:m[0],s:x.s})});return r}
+function terms(){var f={};S.forEach(function(s){kw(s.body).forEach(function(w){f[w]=(f[w]||0)+1})});return Object.keys(f).sort(function(a,b){return f[b]-f[a]}).slice(0,12).map(function(w){return[w,f[w]]})}
+$("po").querySelectorAll("[data-g]").forEach(function(b){b.onclick=function(){
+ var o=$("out");if(!S.length){o.innerHTML='<div class="out">Add a source first.</div>';return}
+ var g=b.dataset.g,h="";
+ if(g==="guide"){h='<h3>Study guide</h3>';S.forEach(function(s,i){var ss=sents(s.body),f={};kw(s.body).forEach(function(w){f[w]=(f[w]||0)+1});var ranked=ss.map(function(x,j){return{x:x,j:j,v:kw(x).reduce(function(a,w){return a+f[w]},0)/Math.sqrt(kw(x).length||1)}}).sort(function(a,b){return b.v-a.v}).slice(0,3).sort(function(a,b){return a.j-b.j});h+='<p><b>'+esc(s.title)+'</b></p><ul>'+ranked.map(function(r){return'<li>'+esc(r.x)+'</li>'}).join("")+'</ul>'});}
+ if(g==="terms"){h='<h3>Key terms</h3><ul>'+terms().map(function(t){return'<li>'+esc(t[0])+' <small style="color:var(--muted)">×'+t[1]+'</small></li>'}).join("")+'</ul>'}
+ if(g==="cards"){var d=defs();if(!d.length){h='<h3>Flashcards</h3><p>I make cards from sentences shaped like "X is Y". Add notes written in that style.</p>'}else{h='<h3>Flashcards</h3>'+d.map(function(c){return'<div class="fc"><button data-front="What '+(/ are /.test(c.d)?'are ':'is ')+esc(c.t)+'?" data-back="'+esc(c.d)+'">What '+(/ are /.test(c.d)?'are ':'is ')+esc(c.t)+'?</button></div>'}).join("")}}
+ if(g==="quiz"){var A=all().filter(function(x){return kw(x.t).length>4}),pool=terms().map(function(t){return t[0]}).concat(kw(S.map(function(s){return s.body}).join(" ")));var qs=A.sort(function(){return Math.random()-.5}).slice(0,4).map(function(x){var ks=kw(x.t).sort(function(a,b){return b.length-a.length}),ans=ks[0],stem=x.t.replace(new RegExp("\\b"+ans+"\\b","i"),"_____"),opts=[ans];while(opts.length<4){var w=pool[Math.floor(Math.random()*pool.length)];if(opts.indexOf(w)<0&&w.length>3)opts.push(w);if(opts.length<4&&pool.length<6&&opts.length>=Math.min(4,new Set(pool).size))break}return{stem:stem,ans:ans,opts:opts.sort(function(){return Math.random()-.5})}});
+  h='<h3>Quiz</h3>'+qs.map(function(q,i){return'<div class="q"><p>'+(i+1)+'. '+esc(q.stem)+'</p>'+q.opts.map(function(o){return'<button class="o" data-a="'+(o===q.ans?1:0)+'" data-ans="'+esc(q.ans)+'">'+esc(o)+'</button>'}).join("")+'</div>'}).join("")}
+ o.innerHTML='<div class="out">'+h+'</div>';
+ o.querySelectorAll("[data-front]").forEach(function(c){c.onclick=function(){var fl=c.classList.toggle("f");c.textContent=fl?c.dataset.back:c.dataset.front;c.parentNode.classList.remove("flip");void c.offsetWidth;c.parentNode.classList.add("flip")}});
+ o.querySelectorAll("button.o").forEach(function(c){c.onclick=function(){var q=c.parentNode;q.querySelectorAll("button.o").forEach(function(x){x.disabled=true;if(x.dataset.a==="1")x.classList.add("ok")});if(c.dataset.a!=="1")c.classList.add("no")}});
+ if(innerWidth<=900)o.scrollIntoView()}});
+function tab(t){var m={s:"ps",c:"pc",o:"po"};document.querySelectorAll(".tabs button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.t===t)});["ps","pc","po"].forEach(function(i){$(i).classList.toggle("on",i===m[t])})}
+document.querySelectorAll(".tabs button").forEach(function(b){b.onclick=function(){tab(b.dataset.t)}});
+renderSrc();reset();
+</script>
+</body>
+</html>

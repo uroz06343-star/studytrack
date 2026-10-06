@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://uroz06343-star.github.io/studytrack/sitemap.xml
